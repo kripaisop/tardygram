@@ -11,7 +11,7 @@ mongoose.connection.dropDatabase();
 
 const profPic = 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg';
 
-const seedData = (({totalUsers = DEFAULT_TOTAL_USERS, totalPosts = DEFAULT_TOTAL_POSTS }) => {
+const seedData = (({ totalUsers = DEFAULT_TOTAL_USERS, totalPosts = DEFAULT_TOTAL_POSTS }) => {
   return Promise.all(
     [...Array(totalUsers)].map((el, index) => {
       return User.create({ username: `person${index}`, password: 'password', profilePhotoUrl: profPic });
