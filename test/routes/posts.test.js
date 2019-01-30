@@ -5,25 +5,31 @@ const request = require('supertest');
 
 const app = require('../../lib/app');
 const Post = require('../../lib/models/Post');
-const { getUser, getPost, getPosts } = require('../dataHelpers');
+const { getUser, getPost, getPosts, getToken } = require('../dataHelpers');
 
 const profPic = 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg';
 
 describe.only('posts', () => {
   it('can post a new post from a user', () => {
-    return getUser()
+    return getUser({ username: 'person0' })
       .then(user => {
-        console.log('PUT A LABEL ON IT', user);
         return request(app)
           .post('/posts')
+          .set('Authorization', `Bearer ${getToken()}`)
           .send({
             user: user._id,
             photoUrl: profPic,
             caption: 's lit',
-            tags: ['#litty', '#blessed']
+            tags: ['#litty', '#blessed'],
           });
       }).then(res => {
-        console.log(res.body);
+        expect(res.body).toEqual({
+          photoUrl: profPic,
+          caption: 's lit',
+          tags: ['#litty', '#blessed'],
+          __v: 0,
+          _id: expect.any(String)
+        });
       });
   });
 });

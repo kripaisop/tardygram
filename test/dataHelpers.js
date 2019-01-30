@@ -24,7 +24,6 @@ let token;
 beforeEach(() => {
   return User.findOne({ username: 'person0' })
     .then(user => {
-      console.log(user, '**********');
       return request(app)
         .post('/auth/signin')
         .send({
@@ -33,6 +32,7 @@ beforeEach(() => {
         });
     })
     .then(res => {
+      console.log('token log in dataHelpers', res.body);
       token = res.body.token;
     });
 });
