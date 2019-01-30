@@ -4,27 +4,27 @@ const Chance = require('chance');
 const chance = new Chance();
 const mongoose = require('mongoose');
 
-const users = [...Array(10)];
-const posts = [...Array(100)];
+const DEFAULT_TOTAL_USERS = 10;
+const DEFAULT_TOTAL_POSTS = 100;
 
 mongoose.connection.dropDatabase();
 
 const profPic = 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg';
 
-const seedData = () => {
+const seedData = (({totalUsers = DEFAULT_TOTAL_USERS, totalPosts = DEFAULT_TOTAL_POSTS }) => {
   return Promise.all(
-    users.map((el, index) => {
+    [...Array(totalUsers)].map((el, index) => {
       return User.create({ username: `person${index}`, password: 'password', profilePhotoUrl: profPic });
     })
   )
     .then(users => {
       return Promise.all(
-        posts.map(() => {
+        [...Array(totalPosts)].map(() => {
           return Post.create({ user: chance.pickone(users)._id, photoUrl: `${profPic}`, caption: 'yolo 420 cats be taking over', tags: ['#yolo', '#cats', '#420', '#blessed'] });
         })
       );
     }
     );
-};
+});
 
 module.exports = seedData;

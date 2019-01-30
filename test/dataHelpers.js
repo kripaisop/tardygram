@@ -17,7 +17,7 @@ beforeEach(done => {
 });
 
 beforeEach(() => {
-  return seedData({ totalUsers: 3, totalTweets: 5 });
+  return seedData({ totalUsers: 3, totalPosts: 5 });
 });
 
 let token;
@@ -27,7 +27,7 @@ beforeEach(() => {
       return request(app)
         .post('/auth/signin')
         .send({
-          email: user.email,
+          username: user.username,
           password: 'password'
         });
     })
@@ -39,3 +39,19 @@ beforeEach(() => {
 afterAll(done => {
   mongoose.connection.close(done);
 });
+
+const prepare = model => JSON.parse(JSON.stringify(model));
+const prepareAll = models => models.map(prepare);
+
+const createGetters = Model => {
+  return {
+    [`get${Model.modelName}`]: (query = {}) => Model.findOne(query).then(prepare),
+    [`get${Model.modelName}s`]: (query = {}) => Model.find(query).then(prepareAll),    
+  };
+};
+
+module.exports = {
+  ...createGetters(User),
+  ...createGetters(Post),
+  getToken: () => token
+};
