@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "chance": "^1.0.18",
     "dotenv": "^6.2.0",
+    "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.7",
     "superagent": "^4.1.0"
   },
