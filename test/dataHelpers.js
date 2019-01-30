@@ -22,8 +22,9 @@ beforeEach(() => {
 
 let token;
 beforeEach(() => {
-  return User.findOne({ username: 'person1' })
+  return User.findOne({ username: 'person0' })
     .then(user => {
+      console.log(user, '**********');
       return request(app)
         .post('/auth/signin')
         .send({

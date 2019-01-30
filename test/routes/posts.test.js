@@ -10,12 +10,6 @@ const { getUser, getPost, getPosts } = require('../dataHelpers');
 const profPic = 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg';
 
 describe.only('posts', () => {
-  beforeEach(done => {
-    return mongoose.connection.dropDatabase(() => {
-      done();
-    });
-  });
-
   it('can post a new post from a user', () => {
     return getUser()
       .then(user => {
