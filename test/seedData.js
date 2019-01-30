@@ -2,15 +2,14 @@ const Post = require('../lib/models/Post');
 const User = require('../lib/models/User');
 const Chance = require('chance');
 const chance = new Chance();
+const mongoose = require('mongoose');
 
 const users = [...Array(10)];
 const posts = [...Array(100)];
 
-const mongoose = require('mongoose');
 mongoose.connection.dropDatabase();
 
 const profPic = 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg';
-
 
 const seedData = () => {
   return Promise.all(
