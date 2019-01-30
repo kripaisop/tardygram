@@ -88,6 +88,7 @@ describe.only('auth', () => {
       }).then(res => {
         expect(res.body).toEqual({
           username: 'INflewenc3r',
+          profilePhotoUrl: profPic,
           _id: expect.any(String)
         });
       });
