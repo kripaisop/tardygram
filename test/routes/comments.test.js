@@ -19,13 +19,19 @@ describe('comments', () => {
             ]);
           })
           .then(([post, res]) => {
-            console.log(res.body, 'RES!!!!!!!!!');
+            // console.log(res.body, 'RES!!!!!!!!!');
             return request(app)
               .post('/comments')
               .send({ commentBy: user._id, post: post._id, comment: 'blessed up bb' })
               .set('Authorization', `Bearer ${getToken()}`)
               .then(res => {
-                expect(res.body).toEqual({ commentBy: user._id, post: post._id, comment: 'blessed up bb' });
+                expect(res.body).toEqual({ 
+                  commentBy: user._id, 
+                  post: post._id, 
+                  comment: 'blessed up bb', 
+                  _id: expect.any(String),
+                  __v: 0
+                });
               });
           });
       });
