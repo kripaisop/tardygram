@@ -120,16 +120,16 @@ describe('posts', () => {
       });
   });
 
-  it.only('can get the top 10 most popular posts', () => {
+  it('can get the top 10 most popular posts', () => {
     return getUser()
-      .then(user => {
-        console.log('user', user);
+      .then(() => {
         return request(app)
           .get('/posts/popular')
           .set('Authorization', `Bearer ${getToken()}`)
           .then(res => {
-            console.log(res.body);
+            expect(res.body).toHaveLength(10);
           });
       });
   });
 });
+

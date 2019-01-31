@@ -35,7 +35,6 @@ it('can delete a comment', () => {
           .set('Authorization', `Bearer ${getToken()}`)
       ])
         .then(([deletedComment, res]) => {
-          console.log('DEL', deletedComment);
           expect(res.body).toEqual({ 
             commentBy: expect.any(String), 
             post: expect.any(String), 
