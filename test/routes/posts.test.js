@@ -98,8 +98,23 @@ describe.only('posts', () => {
       });
   });
 
-  // it('can delete a post by id', () => {
-     
-  // }
-
+  it('can delete a post by id', () => {
+    return getPost()
+      .then(post => {
+        return Promise.all([
+          Promise.resolve(post._id), 
+          request(app)
+            .delete(`/posts/${post._id}`)
+            .set('Authorization', `Bearer ${getToken()}`)
+        ]);
+      })
+      .then(([_id, res]) => {
+        expect(res.body).toEqual({ deleted: 1 });
+        return request(app)
+          .get(`/posts/${_id}`);
+      })
+      .then(() => {
+        // expect(res.status).toEqual(404);
+      });
+  });
 });
