@@ -40,6 +40,7 @@ describe('comments', () => {
   it('can delete a comment', () => {
     return getUser({ username: 'person0' })
       .then(user => {
+        console.log('USER', user);
         return getPost()
           .then(post => {
             return Promise.all([
@@ -50,6 +51,8 @@ describe('comments', () => {
             ]);
           })
           .then(([post, res]) => {
+            console.log('POST', post);
+            console.log('RES', res.body);
             return getComment()
               .then(comment => {
                 return Promise.all([
@@ -59,7 +62,14 @@ describe('comments', () => {
                     .set('Authorization', `Bearer ${getToken()}`)
                 ])
                   .then(([deletedComment, res]) => {
-                    expect(res.body).toEqual({ deleted: 1 });
+                    console.log('DEL', deletedComment);
+                    expect(res.body).toEqual({ 
+                      commentBy: expect.any(String), 
+                      post: expect.any(String), 
+                      comment: expect.any(String), 
+                      _id: expect.any(String),
+                      __v: 0
+                    });
                   });
               });
           });
