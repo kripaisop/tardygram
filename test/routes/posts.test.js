@@ -119,4 +119,17 @@ describe('posts', () => {
         expect(res.status).toEqual(404);
       });
   });
+
+  it.only('can get the top 10 most popular posts', () => {
+    return getUser()
+      .then(user => {
+        console.log('user', user);
+        return request(app)
+          .get('/posts/popular')
+          .set('Authorization', `Bearer ${getToken()}`)
+          .then(res => {
+            console.log(res.body);
+          });
+      });
+  });
 });
