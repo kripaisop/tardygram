@@ -23,7 +23,8 @@
     "pretest": "npm run lint",
     "test": "jest --verbose --runInBand --detectOpenHandles",
     "test:watch": "jest --watch --verbose --runInBand --detectOpenHandles",
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "start:watch": "nodemon server.js",
     "seed": "node seed.js",
     "test": "exit 0"
   },
