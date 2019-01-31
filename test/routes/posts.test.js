@@ -53,8 +53,8 @@ describe.only('posts', () => {
             .set('Authorization', `Bearer ${getToken()}`)
         ]);
       })
+      /* eslint-disable-next-line */
       .then(([post, res]) => {
-        console.log('!!!', post);
         expect(res.body).toEqual({
           caption: 'yolo 420 cats be taking over',
           photoUrl: 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg',
@@ -68,6 +68,30 @@ describe.only('posts', () => {
             _id: expect.any(String),
             username: 'person0',
           },
+        });
+      });
+  });
+  it('can update a post by id', () => {
+    return getPost()
+      .then(post => {
+        return request(app)
+          .patch(`/posts/${post._id}`)
+          .send({ caption: 'we gucci' });
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          caption: 'we gucci',
+          photoUrl: 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg',
+          tags:[
+            '#yolo',
+            '#cats',
+            '#420',
+            '#blessed'
+          ],
+          user:{
+            _id: expect.any(String),
+            username: 'person0'
+          }
         });
       });
   });
