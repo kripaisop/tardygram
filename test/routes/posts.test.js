@@ -1,10 +1,8 @@
 require('dotenv').config();
 require('../../lib/utils/connect')();
-const mongoose = require('mongoose');
 const request = require('supertest');
 
 const app = require('../../lib/app');
-const Post = require('../../lib/models/Post');
 const { getUser, getPost, getPosts, getToken } = require('../dataHelpers');
 
 const profPic = 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg';
@@ -30,6 +28,19 @@ describe.only('posts', () => {
           __v: 0,
           _id: expect.any(String)
         });
+      });
+  });
+  it('can get alllll the posts', () => {
+    return request(app)
+      .get('/posts')
+      .set('Authorization', `Bearer ${getToken()}`)
+      .then(res => {
+        return Promise.all([
+          Promise.resolve(res.body),
+          getPosts()
+        ]);
+      }).then(([body, posts]) => {
+        expect(body).toHaveLength(posts.length);
       });
   });
 });

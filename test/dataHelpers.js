@@ -32,7 +32,6 @@ beforeEach(() => {
         });
     })
     .then(res => {
-      console.log('token log in dataHelpers', res.body);
       token = res.body.token;
     });
 });
