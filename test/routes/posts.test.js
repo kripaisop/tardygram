@@ -111,10 +111,11 @@ describe.only('posts', () => {
       .then(([_id, res]) => {
         expect(res.body).toEqual({ deleted: 1 });
         return request(app)
-          .get(`/posts/${_id}`);
+          .get(`/posts/${_id}`)
+          .set('Authorization', `Bearer ${getToken()}`);
       })
-      .then(() => {
-        // expect(res.status).toEqual(404);
+      .then(res => {
+        expect(res.status).toEqual(404);
       });
   });
 });
