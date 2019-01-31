@@ -68,6 +68,7 @@ describe('posts', () => {
             _id: expect.any(String),
             username: 'person0',
           },
+          comments: expect.any(Array)
         });
       });
   });
