@@ -43,4 +43,32 @@ describe.only('posts', () => {
         expect(body).toHaveLength(posts.length);
       });
   });
+  it('gets a post by id', () => {
+    return getPost()
+      .then(post => {
+        return Promise.all([
+          Promise.resolve(post), 
+          request(app)
+            .get(`/posts/${post._id}`)
+            .set('Authorization', `Bearer ${getToken()}`)
+        ]);
+      })
+      .then(([post, res]) => {
+        console.log('!!!', post);
+        expect(res.body).toEqual({
+          caption: 'yolo 420 cats be taking over',
+          photoUrl: 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg',
+          tags:[
+            '#yolo',
+            '#cats',
+            '#420',
+            '#blessed',
+          ],
+          user:{
+            _id: expect.any(String),
+            username: 'person0',
+          },
+        });
+      });
+  });
 });
