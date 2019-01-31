@@ -71,11 +71,13 @@ describe.only('posts', () => {
         });
       });
   });
+
   it('can update a post by id', () => {
     return getPost()
       .then(post => {
         return request(app)
           .patch(`/posts/${post._id}`)
+          .set('Authorization', `Bearer ${getToken()}`)
           .send({ caption: 'we gucci' });
       })
       .then(res => {
@@ -95,4 +97,9 @@ describe.only('posts', () => {
         });
       });
   });
+
+  // it('can delete a post by id', () => {
+     
+  // }
+
 });
