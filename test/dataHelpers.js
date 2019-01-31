@@ -17,7 +17,7 @@ beforeEach(done => {
 });
 
 beforeEach(() => {
-  return seedData({ totalUsers: 3, totalPosts: 5 });
+  return seedData({ totalUsers: 3, totalPosts: 5, totalComments: 15 });
 });
 
 let token;
