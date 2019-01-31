@@ -1,7 +1,6 @@
 require('dotenv').config();
 require('../../lib/utils/connect')();
 const request = require('supertest');
-
 const app = require('../../lib/app');
 const { getPost, getToken, getComment } = require('../dataHelpers');
 
@@ -15,7 +14,7 @@ describe('comments', () => {
           .set('Authorization', `Bearer ${getToken()}`)
           .then(res => {
             expect(res.body).toEqual({ 
-              commentBy: user._id, 
+              commentBy: expect.any(String), 
               post: post._id, 
               comment: 'blessed up bb', 
               _id: expect.any(String),
