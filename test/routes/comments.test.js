@@ -33,7 +33,7 @@ it('can delete a comment', () => {
         request(app)
           .delete(`/comments/${comment._id}`)
           .set('Authorization', `Bearer ${getToken()}`)
-      ])
+      ]) // eslint-disable-next-line no-unused-vars
         .then(([deletedComment, res]) => {
           expect(res.body).toEqual({ 
             commentBy: expect.any(String), 
