@@ -20,4 +20,11 @@ describe('users', () => {
       });
   });
 
+  it.only('can get a list of 10 users with most comments on their posts', () => {
+    return request(app)
+      .get('/users/popular')
+      .then(res => {
+        expect(res.body).toHaveLength(10);
+      });
+  });
 });
