@@ -1,6 +1,7 @@
 require('dotenv').config();
 require('../../lib/utils/connect')();
 const request = require('supertest');
+const mongoose = require('mongoose');
 
 const app = require('../../lib/app');
 const { getUser, getPost, getPosts, getToken } = require('../dataHelpers');
@@ -131,5 +132,8 @@ describe('posts', () => {
           });
       });
   });
+  afterAll((done) => {
+    return mongoose.connection.close(done);
+  }); 
 });
 
