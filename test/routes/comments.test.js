@@ -35,6 +35,7 @@ describe('comments', () => {
             .set('Authorization', `Bearer ${getToken()}`)
         ]) // eslint-disable-next-line no-unused-vars
           .then(([deletedComment, res]) => {
+            expect(deletedComment.commentBy).toEqual(res.body.commentBy);
             expect(res.body).toEqual({ 
               commentBy: expect.any(String), 
               post: expect.any(String), 
