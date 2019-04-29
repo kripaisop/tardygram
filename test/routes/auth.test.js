@@ -7,13 +7,7 @@ const mongoose = require('mongoose');
 
 const profPic = 'https://media.mnn.com/assets/images/2013/02/grumpycat.jpg.560x0_q80_crop-smart.jpg';
 
-describe.only('auth', () => {
-  beforeEach(done => {
-    return mongoose.connection.dropDatabase(() => {
-      done();
-    });
-  });
-
+describe('auth', () => {
   it('can signup a new user', done => {
     return request(app)
       .post('/auth/signup')
@@ -94,6 +88,6 @@ describe.only('auth', () => {
       });
   });
   afterAll((done) => {
-    mongoose.disconnect(done);
+    return mongoose.connection.close(done);
   }); 
 });

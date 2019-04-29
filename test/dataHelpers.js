@@ -10,11 +10,11 @@ const request = require('supertest');
 const app = require('../lib/app');
 
 beforeAll(() => {
-  connect();
+  return connect();
 });
 
 beforeEach(done => {
-  mongoose.connection.dropDatabase(done);
+  return mongoose.connection.dropDatabase(done);
 });
 
 beforeEach(() => {

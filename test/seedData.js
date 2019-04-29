@@ -16,7 +16,7 @@ const seedData = (totalUsers = DEFAULT_TOTAL_USERS, totalPosts = DEFAULT_TOTAL_P
       return User.create({ username: `person${index}`, password: 'password', profilePhotoUrl: profPic });
     })
   )
-    .then(users => {
+    .then(users => { 
       return Promise.all(
         [...Array(totalPosts)].map(() => {
           return Post.create({ user: chance.pickone(users)._id, photoUrl: `${profPic}`, caption: 'yolo 420 cats be taking over', tags: ['#yolo', '#cats', '#420', '#blessed'] });
